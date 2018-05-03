@@ -1,6 +1,13 @@
+
 /*
  * Create a list that holds all of your cards
  */
+let cardList = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-anchor", "fa-leaf", "fa-bicycle", "fa-diamond", "fa-bomb", "fa-leaf", "fa-bomb", "fa-bolt", "fa-bicycle", "fa-paper-plane-o", "fa-cube"],
+    moves = 0,
+    firstMatch = true,
+    lastCard = null;
+    lastCardType = "";
+
 
 
 /*
@@ -25,6 +32,93 @@ function shuffle(array) {
     return array;
 }
 
+shuffledCardList = shuffle(cardList);
+console.log(shuffledCardList);
+createDeck(shuffledCardList);
+
+// Create the deck with shuffled cards
+function createDeck(cards) {
+    cards.forEach(function (card) {
+       cardType = "<li class=\"card\">\n<i class=\"fa " + card + "\"></i>\n</li>";
+       $('.deck').append(cardType);
+    })
+} 
+
+$('.card').click(function () {
+
+    // if ($(this).children().hasClass(lastCard)){
+    //     displayCard(this);
+    // }
+    
+    // Get the card type info string from the clicked card
+    currentCard = $(this).children().attr('class').split(' ')[1];
+
+    matched = $(this).hasClass("match");
+    console.log("It's already matched", matched);
+
+    if ($(lastCard).hasClass("match")||$(this).hasClass("match"))
+        return;
+
+    console.log("lastCard", lastCard);
+    console.log("currentCard", currentCard);
+
+    if (firstMatch) {
+        displayCard(this);
+        lastCardType =  currentCard;
+        firstMatch = false;
+        lastCard = this;
+    }
+    else 
+        if (lastCardType !== currentCard) {
+            displayWrongCard(this, lastCard);
+            lastCardType = "";
+            lastCard = null;
+            firstMatch = true;
+            console.log("Hey it's wrong!");
+        }
+        else if (this !== lastCard) {
+            displayMatchedCard(this, lastCard);
+            lastCardType = "";
+            lastCard = null;
+            firstMatch = true;
+        }
+    
+})
+
+// Display the card's symbol
+function displayCard(card) {
+    $(card).addClass("open show animated flip");
+}
+
+function displayMatchedCard(card, lastCard) {
+    
+    // $(lastCard)
+    $(card).addClass("open show match animated flip"); 
+    $(lastCard).addClass("match");
+    console.log("Hey",currentCard);
+    document.getElementsByClassName(currentCard).disabled = true; 
+}
+
+function displayWrongCard(card, lastCard) {
+    console.log("function:",card, lastCard);
+    $(lastCard).removeClass("animated flip");
+    
+    $(card).addClass("open wrong show animated shake");
+    $(lastCard).addClass("open wrong show animated shake");
+    
+    setTimeout(function () {$(card).removeClass("open show wrong animated shake");
+    $(lastCard).removeClass("open wrong show animated shake");
+}, 500);
+}
+
+
+
+// Add the card to a list of "open" cards
+function listCard(card) {
+
+}
+
+// Match the 
 
 /*
  * set up the event listener for a card. If a card is clicked:
