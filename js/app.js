@@ -121,9 +121,9 @@ $(".card").click(function() {
         .eq(1)
         .attr("class", "fa fa-star-o");
       stars = 1;
-      }
     }
   }
+
   if (totalCards === 0)
     swal({
       title: "Good job!",

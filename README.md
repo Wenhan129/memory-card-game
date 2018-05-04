@@ -10,3 +10,4 @@ This game also has a rating system, if you can finish the game in 15 moves, you 
 ## Built With
 
 [animate.css](https://daneden.github.io/animate.css/)
+[sweetalert](https://sweetalert.js.org)
