@@ -109,24 +109,18 @@ $(".card").click(function() {
   // Update the moves after clicking
   $(".moves").text(moves);
   console.log($(".stars"));
-  if (moves > 14) {
+  if (moves > 15) {
     $(".stars li")
       .children()
       .eq(0)
       .attr("class", "fa fa-star-o");
     stars = 2;
-    if (moves > 19) {
+    if (moves > 20) {
       $(".stars li")
         .children()
         .eq(1)
         .attr("class", "fa fa-star-o");
       stars = 1;
-      if (moves > 20) {
-        $(".stars li")
-          .children()
-          .eq(2)
-          .attr("class", "fa fa-star-o");
-        stars = 0;
       }
     }
   }
